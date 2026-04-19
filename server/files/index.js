@@ -78,6 +78,32 @@ window.onload = function () {
          loadMovies(...) function above. */
       const genres = JSON.parse(xhr.responseText);
 
+      // --- ALL BUTTON ---
+const allLi = document.createElement("li");
+const allButton = document.createElement("button");
+allButton.textContent = "All";
+allButton.onclick = function () {
+  loadMovies();
+};
+allLi.append(allButton);
+listElement.append(allLi);
+
+// --- GENRE BUTTONS ---
+for (const genre of genres) {
+  const li = document.createElement("li");
+  const button = document.createElement("button");
+
+  button.textContent = genre;
+
+  button.onclick = function () {
+    loadMovies(genre);
+  };
+
+  li.append(button);
+  listElement.append(li);
+}
+
+
       /* When a first button exists, we click it to load all movies. */
       const firstButton = document.querySelector("nav button");
       if (firstButton) {
