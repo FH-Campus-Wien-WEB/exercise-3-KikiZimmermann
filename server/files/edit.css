@@ -83,3 +83,27 @@ button {
 button:hover {
   background-color: #8a694d;
 }
+
+button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+/* Invalid input highlight */
+.invalid {
+  border: 2px solid red !important;
+}
+
+/* Error message box */
+.error-box {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #ffdddd;
+  color: #900;
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 1px solid #900;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
