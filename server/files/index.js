@@ -18,6 +18,38 @@ function formatRuntime(runtime) {
   return hours + "h " + minutes + "m";
 }
 
+// colored tags
+function getGenreColor(genre) {
+  const colors = {
+    "Fantasy": "#ffcc80",
+    "Drama": "#90caf9",
+    "Adventure": "#a5d6a7",
+    "Animation": "#b39ddb",
+    "Family": "#9de8ff",
+    "Action": "#ef9a9a",
+    "Comedy": "#ffe082",
+    "Crime": "#bcaaa4",
+    "Documentary": "#c5e1a5",
+    "Biography": "#d7ccc8",
+    "Film Noir": "#9e9e9e",
+    "History": "#ffe0b2",
+    "Horror": "#ef9a9a",
+    "Music": "#f8bbd0",
+    "Musical": "#f48fb1",
+    "Mystery": "#b0bec5",
+    "Romance": "#f48fb1",
+    "Sci-Fi": "#81d4fa",
+    "Short Film": "#e0e0e0",
+    "Sport": "#aed581",
+    "Superhero": "#ff8a65",
+    "Thriller": "#90a4ae",
+    "War": "#a1887f",
+    "Western": "#d7b899"
+  };
+
+  return colors[genre] || "darkgray";
+}
+
 function appendMovie(movie, element) {
   const article = new ElementBuilder("article").id(movie.imdbID)
     .append(new ElementBuilder("img").with("src", movie.Poster))
@@ -31,17 +63,25 @@ function appendMovie(movie, element) {
       "Released on " + new Date(movie.Released).toLocaleDateString("en-US")
     ));
 
+  // --- GENRES ---
   const genreParagraph = new ElementBuilder("p");
-
   for (const genre of movie.Genres) {
     genreParagraph.append(
       new ElementBuilder("span")
-        .with("class", "genre " + genre.toLowerCase().replaceAll(" ", "-"))
+        .with("class", "genre")
+        .with("style", "background-color: " + getGenreColor(genre))
         .text(genre)
     );
   }
 
+  // --- RATINGS ---
+  const ratingParagraph = new ElementBuilder("p")
+    .text("Metascore: " + movie.Metascore + " | IMDb Rating: " + movie.imdbRating + " / 10");
+
+
+
   article
+    .append(ratingParagraph)
     .append(genreParagraph)
     .append(new ElementBuilder("p").text(movie.Plot))
     .append(new ElementBuilder("h2").pluralizedText("Director", movie.Directors))
@@ -97,7 +137,8 @@ window.onload = function () {
       const allLi = document.createElement("li");
       const allButton = document.createElement("button");
       allButton.textContent = "All";
-      allButton.className = "genre-button all";
+      allButton.className = "genre-button";
+      allButton.style.backgroundColor = "#804a1f";
       allButton.onclick = function () {
         loadMovies();
       };
@@ -111,7 +152,8 @@ window.onload = function () {
         const button = document.createElement("button");
 
         button.textContent = genre;
-        button.className = "genre-button " + genre.toLowerCase().replaceAll(" ", "-");
+        button.className = "genre-button";
+        button.style.backgroundColor = getGenreColor(genre);
 
         button.onclick = function () {
           loadMovies(genre);
