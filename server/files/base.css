@@ -1,20 +1,170 @@
 body {
-  font-family: "Trebuchet MS", sans-serif;
-  background-color: brown;
+  font-family: Arial, sans-serif;
+  font-size: 1.1rem;
   color: beige;
+  background-color: #bb9c82;
 }
 
 main {
   color: #333;
 }
 
+h1 {
+  font-weight: bold;
+  text-decoration: underline;
+  margin: 10px 0px 10px;
+}
+
+h2 {
+  margin-bottom: 5px;
+  margin-left: 15px;
+}
+
+ul {
+  margin-top: 0;
+  margin-left: 10px;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul li::before {
+  content: "✦ ";
+  color: #c2920e;
+}
+
 button {
-    padding: 4px;
-    border-width: 1px;
-    border-radius: 4px;
-    font-size: 105%;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: #804a1f;
+  color: white;
+  cursor: pointer;
+  font-size: 105%;
 }
 
 button:hover {
-  background-color: darkgray;
+  background-color: #8a694d;
+}
+
+span {
+  margin-right: 8px;
+}
+
+.genre {
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid #000000;
+  display: inline-block;
+  margin-right: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.genre-button {
+  color: #222;
+  border: 1px solid black;
+  font-weight: bold;
+}
+
+.genre-button.action {
+  background-color: #ef9a9a;
+}
+
+.genre-button.adventure {
+  background-color: #a5d6a7;
+}
+
+.genre-button.animation {
+  background-color: #b39ddb;
+}
+
+.genre-button.biography {
+  background-color: #d7ccc8;
+}
+
+.genre-button.comedy {
+  background-color: #ffe082;
+}
+
+.genre-button.crime {
+  background-color: #bcaaa4;
+}
+
+.genre-button.documentary {
+  background-color: #c5e1a5;
+}
+
+.genre-button.drama {
+  background-color: #90caf9;
+}
+
+.genre-button.family {
+  background-color: #9de8ff;
+}
+
+.genre-button.fantasy {
+  background-color: #ffcc80;
+}
+
+.genre-button.film-noir {
+  background-color: #9e9e9e;
+}
+
+.genre-button.history {
+  background-color: #ffe0b2;
+}
+
+.genre-button.horror {
+  background-color: #ef9a9a;
+}
+
+.genre-button.music {
+  background-color: #f8bbd0;
+}
+
+.genre-button.musical {
+  background-color: #f48fb1;
+}
+
+.genre-button.mystery {
+  background-color: #b0bec5;
+}
+
+.genre-button.romance {
+  background-color: #f48fb1;
+}
+
+.genre-button.sci-fi {
+  background-color: #81d4fa;
+}
+
+.genre-button.short-film {
+  background-color: #e0e0e0;
+}
+
+.genre-button.sport {
+  background-color: #aed581;
+}
+
+.genre-button.superhero {
+  background-color: #ff8a65;
+}
+
+.genre-button.thriller {
+  background-color: #90a4ae;
+}
+
+.genre-button.war {
+  background-color: #a1887f;
+}
+
+.genre-button.western {
+  background-color: #d7b899;
+}
+
+.genre-button.all {
+  background-color: #cfcfcf;
 }

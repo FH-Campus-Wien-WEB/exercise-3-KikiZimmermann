@@ -19,26 +19,38 @@ function formatRuntime(runtime) {
 }
 
 function appendMovie(movie, element) {
-  new ElementBuilder("article").id(movie.imdbID)
-          .append(new ElementBuilder("img").with("src", movie.Poster))
-          .append(new ElementBuilder("h1").text(movie.Title))
-          .append(new ElementBuilder("p")
-              .append(new ElementBuilder("button").text("Edit")
-                    .listener("click", () => location.href = "edit.html?imdbID=" + movie.imdbID)))
-          .append(new ParagraphBuilder().items(
-              "Runtime " + formatRuntime(movie.Runtime),
-              "\u2022",
-              "Released on " +
-                new Date(movie.Released).toLocaleDateString("en-US")))
-          .append(new ParagraphBuilder().childClass("genre").items(movie.Genres))
-          .append(new ElementBuilder("p").text(movie.Plot))
-          .append(new ElementBuilder("h2").pluralizedText("Director", movie.Directors))
-          .append(new ListBuilder().items(movie.Directors))
-          .append(new ElementBuilder("h2").pluralizedText("Writer", movie.Writers))
-          .append(new ListBuilder().items(movie.Writers))
-          .append(new ElementBuilder("h2").pluralizedText("Actor", movie.Actors))
-          .append(new ListBuilder().items(movie.Actors))
-          .appendTo(element);
+  const article = new ElementBuilder("article").id(movie.imdbID)
+    .append(new ElementBuilder("img").with("src", movie.Poster))
+    .append(new ElementBuilder("h1").text(movie.Title))
+    .append(new ElementBuilder("p")
+      .append(new ElementBuilder("button").text("Edit")
+        .listener("click", () => location.href = "edit.html?imdbID=" + movie.imdbID)))
+    .append(new ParagraphBuilder().items(
+      "Runtime " + formatRuntime(movie.Runtime),
+      "\u2022",
+      "Released on " + new Date(movie.Released).toLocaleDateString("en-US")
+    ));
+
+  const genreParagraph = new ElementBuilder("p");
+
+  for (const genre of movie.Genres) {
+    genreParagraph.append(
+      new ElementBuilder("span")
+        .with("class", "genre " + genre.toLowerCase().replaceAll(" ", "-"))
+        .text(genre)
+    );
+  }
+
+  article
+    .append(genreParagraph)
+    .append(new ElementBuilder("p").text(movie.Plot))
+    .append(new ElementBuilder("h2").pluralizedText("Director", movie.Directors))
+    .append(new ListBuilder().items(movie.Directors))
+    .append(new ElementBuilder("h2").pluralizedText("Writer", movie.Writers))
+    .append(new ListBuilder().items(movie.Writers))
+    .append(new ElementBuilder("h2").pluralizedText("Actor", movie.Actors))
+    .append(new ListBuilder().items(movie.Actors))
+    .appendTo(element);
 }
 
 function loadMovies(genre) {
@@ -63,8 +75,8 @@ function loadMovies(genre) {
   const url = new URL("/movies", location.href)
   /* Task 2.2. Add query parameter to the url if a genre is given */
   if (genre) {
-  url.searchParams.set("genre", genre);
-}
+    url.searchParams.set("genre", genre);
+  }
 
   xhr.open("GET", url)
   xhr.send()
@@ -82,29 +94,32 @@ window.onload = function () {
       const genres = JSON.parse(xhr.responseText);
 
       // --- ALL BUTTON ---
-const allLi = document.createElement("li");
-const allButton = document.createElement("button");
-allButton.textContent = "All";
-allButton.onclick = function () {
-  loadMovies();
-};
-allLi.append(allButton);
-listElement.append(allLi);
+      const allLi = document.createElement("li");
+      const allButton = document.createElement("button");
+      allButton.textContent = "All";
+      allButton.className = "genre-button all";
+      allButton.onclick = function () {
+        loadMovies();
+      };
+      allLi.append(allButton);
+      listElement.append(allLi);
 
-// --- GENRE BUTTONS ---
-for (const genre of genres) {
-  const li = document.createElement("li");
-  const button = document.createElement("button");
 
-  button.textContent = genre;
+      // --- GENRE BUTTONS ---
+      for (const genre of genres) {
+        const li = document.createElement("li");
+        const button = document.createElement("button");
 
-  button.onclick = function () {
-    loadMovies(genre);
-  };
+        button.textContent = genre;
+        button.className = "genre-button " + genre.toLowerCase().replaceAll(" ", "-");
 
-  li.append(button);
-  listElement.append(li);
-}
+        button.onclick = function () {
+          loadMovies(genre);
+        };
+
+        li.append(button);
+        listElement.append(li);
+      }
 
 
       /* When a first button exists, we click it to load all movies. */
