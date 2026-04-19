@@ -31,12 +31,19 @@ app.get('/genres', function (req, res) {
   res.send(genres);
 });
 
-/* Task 1.4: Extend the GET /movies endpoint:
+/* Task 2.4: Extend the GET /movies endpoint:
    When a query parameter for a specific genre is given, 
    return only movies that have the given genre
  */
 app.get('/movies', function (req, res) {
-  let movies = Object.values(movieModel)
+  let movies = Object.values(movieModel);
+
+  if (req.query.genre) {
+    movies = movies.filter(function (movie) {
+      return movie.Genres.includes(req.query.genre);
+    });
+  }
+
   res.send(movies);
 })
 

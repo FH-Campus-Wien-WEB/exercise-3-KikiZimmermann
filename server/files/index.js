@@ -61,7 +61,10 @@ function loadMovies(genre) {
   }
 
   const url = new URL("/movies", location.href)
-  /* Task 1.4. Add query parameter to the url if a genre is given */
+  /* Task 2.2. Add query parameter to the url if a genre is given */
+  if (genre) {
+  url.searchParams.set("genre", genre);
+}
 
   xhr.open("GET", url)
   xhr.send()
