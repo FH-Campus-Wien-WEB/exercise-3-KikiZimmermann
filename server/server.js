@@ -15,6 +15,21 @@ app.use(express.static(path.join(__dirname, 'files')));
    This endpoint returns a sorted array of all the genres of the movies
    that are currently in the movie model.
 */
+app.get('/genres', function (req, res) {
+  const movies = Object.values(movieModel);
+  const genres = [];
+
+  for (const movie of movies) {
+    for (const genre of movie.Genres) {
+      if (!genres.includes(genre)) {
+        genres.push(genre);
+      }
+    }
+  }
+
+  genres.sort();
+  res.send(genres);
+});
 
 /* Task 1.4: Extend the GET /movies endpoint:
    When a query parameter for a specific genre is given, 
