@@ -30,7 +30,7 @@ nav button {
 /* Remove unnecessary space and bullets from the lists */
 ul {
   padding: 0px;
-  margin: 16px;
+  margin: 16px 0px;
   list-style-type: none;
 }
 nav ul li::before,
@@ -89,7 +89,12 @@ nav ul li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
+}
+
+.genre-button {
+  padding: 6px 10px;
+  font-size: 1rem;
 }
 
 /* Task 3.3. Make the main element a Flexbox container */
@@ -97,7 +102,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 10px;
   padding: 20px;
   background-color: #bb9c82;
@@ -150,7 +155,7 @@ article {
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 384px;
-  max-width: 600px;
+  
 
   border-style: dashed;
   border-width: 3px;
